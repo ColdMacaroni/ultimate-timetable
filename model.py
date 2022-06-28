@@ -9,6 +9,31 @@ class AttendanceCode(Enum):
     MEDICAL = auto()
     CANCELLED = auto()
 
+    def __str__(self):
+        reversed_dict = dict(map(reversed, self.str_dict.items()))
+
+        return reversed_dict[self]
+
+    @classmethod
+    def from_str(cls, s: str) -> "AttendanceCode":
+        if s not in cls.str_dict:
+            raise ValueError(f"{s} is not an appropriate attendance code")
+
+        return cls.str_dict[s]
+
+    @classmethod
+    @property
+    def str_dict(self):
+        str_to_attr = {
+            "P": self.PRESENT,
+            "L": self.LATE,
+            "?": self.ABSENT,
+            "M": self.MEDICAL,
+            "F": self.CANCELLED
+        }
+
+        return str_to_attr
+
 
 class Days(Enum):
     MONDAY = auto()
@@ -29,6 +54,8 @@ class Days(Enum):
                 return "Thursday"
             case self.FRIDAY:
                 return "Friday"
+            case _:
+                self
 
 
 @dataclass
