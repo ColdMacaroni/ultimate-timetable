@@ -9,20 +9,20 @@ class Days(Enum):
     THURSDAY = auto()
     FRIDAY = auto()
 
-    @classmethod
-    def str(cls, day):
-        match day:
-            case cls.MONDAY:
-                return "monday"
-            case cls.TUESDAY:
-                return "tuesday"
-            case cls.WEDNESDAY:
-                return "wednesday"
-            case cls.THURSDAY:
-                return "thursday"
-            case cls.FRIDAY:
-                return "friday"
+    def __str__(self):
+        match self:
+            case self.MONDAY:
+                return "Monday"
+            case self.TUESDAY:
+                return "Tuesday"
+            case self.WEDNESDAY:
+                return "Wednesday"
+            case self.THURSDAY:
+                return "Thursday"
+            case self.FRIDAY:
+                return "Friday"
 
 
 class SpellTimes:
-    def __init__(self, day, times)
+    def __init__(self, day, times):
+        pass
