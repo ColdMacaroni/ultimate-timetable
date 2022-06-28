@@ -1,7 +1,8 @@
 from dataclasses import dataclass
 from enum import Enum, auto
 
-class Days(Enum): 
+
+class Days(Enum):
     MONDAY = auto()
     TUESDAY = auto()
     WEDNESDAY = auto()
@@ -20,6 +21,17 @@ class Days(Enum):
                 return "Thursday"
             case self.FRIDAY:
                 return "Friday"
+
+
+@dataclass
+class Spell:
+    _class_code: str
+    _class_name: str
+    _class_room: str
+    _teacher_code: str
+    _teacher_name: str
+    _start: tuple[int, int] | list[int, int]
+    _end: tuple[int, int] | list[int, int]
 
 
 class DaySpells:

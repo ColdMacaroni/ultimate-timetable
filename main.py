@@ -6,6 +6,7 @@ from view import TimetableMain
 from sys import argv
 import json
 
+
 def main(spells_fn, times_fn):
     """
     Initializes the controller and the windows, and then starts everything.
@@ -17,7 +18,7 @@ def main(spells_fn, times_fn):
         spell_data = json.load(fp)
 
     with open(times_fn, 'r') as fp:
-            times_data = json.load(fp)
+        times_data = json.load(fp)
 
     win = TimetableMain()
     con = TimetableController(win, spell_data, times_data)
