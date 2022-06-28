@@ -15,13 +15,13 @@ class TimetableMain(QtWidgets.QMainWindow):
         self.initUI()
 
     def initUI(self):
-        self.setCentralWidget(QtWidgets)
+        self.setCentralWidget(QtWidgets.QWidget())
 
         # This is the main layout for the window
         vbox = QtWidgets.QVBoxLayout(self)
 
         vbox.addWidget(self.day_combobox)
         vbox.addWidget(self.spell5_checkbox)
-        
+
         self.centralWidget().setLayout(vbox)
     
