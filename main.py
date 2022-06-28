@@ -28,7 +28,7 @@ def main(spells_fn, times_fn):
 if __name__ == "__main__":
     # Using _ before names because this is global by default (thanks python)
     # If we've been provided with an argument
-    if len(argv > 1):
+    if len(argv) > 1:
         # In most command line programs - means to read from STDIN
         if argv[1] == '-':
             _spells_fn = input("Spells JSON: ").strip()
@@ -38,7 +38,7 @@ if __name__ == "__main__":
     else:
         _spells_fn = "spells.json"
 
-    if len(argv > 2):
+    if len(argv) > 2:
         # In most command line programs - means to read from STDIN
         if argv[2] == '-':
             _times_fn = input("Times JSON: ").strip()
