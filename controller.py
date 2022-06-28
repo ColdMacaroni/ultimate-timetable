@@ -7,7 +7,6 @@ class TimetableController:
         self.timetable_window = timetable_window
         self.spell_dict = spell_dict
         self.times_dict = times_dict
-        print(spell_dict, times_dict)
     
     def run(self):
         self.timetable_window.show()
