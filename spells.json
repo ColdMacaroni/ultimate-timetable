@@ -1,6 +1,8 @@
 {
     "spells": {
         "ako": {
+            "name": "Ako",
+            "code": "AKO",
             "teacher_name": "Suzanne Pryde",
             "teacher_code": "PSU",
             "room": "20"

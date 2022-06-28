@@ -60,14 +60,22 @@ class Days(Enum):
 
 @dataclass
 class Spell:
-    _class_code: str
     _class_name: str
+    _class_code: str
 
     # Room is a string because of rooms like T1, T2, gym, etc.
     _class_room: str
 
     _teacher_code: str
     _teacher_name: str
+
+    @classmethod
+    def from_dict(cls, d: dict[str, str]):
+        return cls(d["name"],
+                   d["code"],
+                   d["room"],
+                   d["teacher_code"],
+                   d["teacher_name"])
 
     @property
     def class_code(self) -> str:
