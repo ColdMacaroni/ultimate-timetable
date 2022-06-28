@@ -1,4 +1,3 @@
-from calendar import MONDAY, THURSDAY, WEDNESDAY
 from dataclasses import dataclass
 from enum import Enum, auto
 
@@ -23,6 +22,6 @@ class Days(Enum):
                 return "Friday"
 
 
-class SpellTimes:
-    def __init__(self, day, times):
+class DaySpells:
+    def __init__(self, day: Days, times, spells):
         pass
