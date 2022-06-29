@@ -34,8 +34,41 @@ class AttendanceCode(Enum):
 
         return str_to_attr
 
+@dataclass
+class Time:
+    _hour: int
+    _minute: int
 
-class Days(Enum):
+    MINUTES = 60
+    HOURS = 24
+
+    def __str__(self):
+        return f"{self.hour:02}:{self.minute:02}"
+
+    @property
+    def hour(self):
+        return self._hour
+
+    @hour.setter
+    def hour(self, new):
+        if new < 0 or new >= self.HOURS:
+            raise ValueError("Invalid hour")
+
+        self._hour = new
+
+    @property
+    def minute(self):
+        return self._minute
+
+    @minute.setter
+    def minute(self, new):
+        if new < 0 or new >= self.MINUTES:
+            raise ValueError("Invalid minute")
+
+        self._minute = new
+
+
+class Day(Enum):
     MONDAY = auto()
     TUESDAY = auto()
     WEDNESDAY = auto()
@@ -134,5 +167,5 @@ class Spell:
 
 
 class DaySpells:
-    def __init__(self, day: Days, times, spells):
+    def __init__(self, day: Day, times, spells: list[Spell]):
         pass
