@@ -94,14 +94,14 @@ class Day(Enum):
 
 @dataclass
 class Spell:
-    _class_name: str
-    _class_code: str
+    class_name: str
+    class_code: str
 
     # Room is a string because of rooms like T1, T2, gym, etc.
-    _class_room: str
+    class_room: str
 
-    _teacher_code: str
-    _teacher_name: str
+    teacher_code: str
+    teacher_name: str
 
     @classmethod
     def from_dict(cls, d: dict[str, str]):
@@ -137,12 +137,12 @@ class Spell:
     def class_room(self) -> str:
         return self._class_room
 
-    @class_code.setter
-    def class_code(self, new) -> str:
+    @class_room.setter
+    def class_room(self, new) -> str:
         if not isinstance(new, str):
-            raise ValueError("Class code must be a string")
+            raise ValueError("Class room must be a string")
 
-        self._class_code = new
+        self._class_room = new
 
     @property
     def teacher_code(self) -> str:
@@ -150,6 +150,8 @@ class Spell:
 
     @teacher_code.setter
     def teacher_code(self, new) -> str:
+        # I'm tempted to check that it can only be 3 chars, but I won't
+        # because I'm not 100% sure of the format.
         if not isinstance(new, str):
             raise ValueError("Teacher code must be a string")
 

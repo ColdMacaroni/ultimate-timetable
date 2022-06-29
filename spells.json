@@ -1,51 +1,49 @@
 {
     "spells": {
         "ako": {
-            "name": "Ako",
-            "code": "AKO",
+            "class_name": "Ako",
+            "class_code": "AKO",
             "teacher_name": "Suzanne Pryde",
             "teacher_code": "PSU",
-            "room": "20"
+            "class_room": "20"
         },
-        "spells": {
-            "1": {
-                "name": "English",
-                "code": "ENG",
-                "teacher_code": "HGR",
-                "teacher_name": "Grace Howarth",
-                "room": "22"
-            },
-            "2": {
-                "name": "Fashion and Design",
-                "code": "FDE",
-                "teacher_code": "HSU",
-                "teacher_name": "Sue Hannaway",
-                "room": "T1"
-            },
-            "3": {
-                "name": "Maths with Calculus",
-                "code": "MAC",
-                "teacher_code": "USH",
-                "teacher_name": "Shimmy Unnikrishnan",
-                "room": "40"
-            },
-            "4": {
-                "name": "Digital Media",
-                "code": "DTM",
-                "teacher_code": "CKL",
-                "teacher_name": "Whaea Kailey",
-                "room": "8"
-            },
-            "5": {
-                "name": "Computer Science",
-                "code": "DTC",
-                "teacher_code": "VTA",
-                "teacher_name": "Tatiana Voropaeva",
-                "room": "7"
-            },
-            "6": null,
-            "7": null
-        }
+        "1": {
+            "class_name": "English",
+            "class_code": "ENG",
+            "teacher_code": "HGR",
+            "teacher_name": "Grace Howarth",
+            "class_room": "22"
+        },
+        "2": {
+            "class_name": "Fashion and Design",
+            "class_code": "FDE",
+            "teacher_code": "HSU",
+            "teacher_name": "Sue Hannaway",
+            "class_room": "T1"
+        },
+        "3": {
+            "class_name": "Maths with Calculus",
+            "class_code": "MAC",
+            "teacher_code": "USH",
+            "teacher_name": "Shimmy Unnikrishnan",
+            "class_room": "40"
+        },
+        "4": {
+            "class_name": "Digital Media",
+            "class_code": "DTM",
+            "teacher_code": "CKL",
+            "teacher_name": "Whaea Kailey",
+            "class_room": "8"
+        },
+        "5": {
+            "class_name": "Computer Science",
+            "class_code": "DTC",
+            "teacher_code": "VTA",
+            "teacher_name": "Tatiana Voropaeva",
+            "class_room": "7"
+        },
+        "6": null,
+        "7": null
     },
     "days" : {
         "monday":    ["6", "1", "2", "3", "3"],
