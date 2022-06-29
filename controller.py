@@ -1,7 +1,6 @@
 import view
 import json
 
-
 class TimetableController:
     def __init__(self, timetable_window: view.TimetableMain,
                  spell_dict: dict, times_dict: dict):
