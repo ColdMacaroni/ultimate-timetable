@@ -34,6 +34,7 @@ class AttendanceCode(Enum):
 
         return str_to_attr
 
+
 @dataclass
 class Time:
     _hour: int
@@ -166,6 +167,37 @@ class Spell:
         self._teacher_name = new
 
 
+@dataclass
+class SpellSlot:
+    _spell: Spell
+    _start: Time
+    _end: Time
+
+
 class DaySpells:
-    def __init__(self, day: Day, times, spells: list[Spell]):
-        pass
+    def __init__(self, day: Day, spell_slots: list[SpellSlot]):
+        self.day = day
+        self.spell_slots = spell_slots
+
+    @property
+    def day(self):
+        return self._day
+
+    @day.setter
+    def day(self, new):
+        if new not in Day:
+            raise ValueError("Value is not of Day enum")
+
+        self._day = new
+
+    @property
+    def spell_slots(self):
+        return self._spell_slots
+
+    @spell_slots.setter
+    def spell_slots(self, new):
+        if not all(map(lambda x: isinstance(x, new))):
+            raise ValueError("New spell slots list must only"
+                             "have SpellSlot dataclass")
+
+        self._spell_slots = new
