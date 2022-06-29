@@ -19,7 +19,7 @@ class TimetableMain(QtWidgets.QMainWindow):
         self.setCentralWidget(QtWidgets.QWidget())
 
         # This is the main layout for the window
-        vbox = QtWidgets.QVBoxLayout(self)
+        vbox = QtWidgets.QVBoxLayout(self.centralWidget())
 
         vbox.addWidget(self.day_combobox)
         vbox.addWidget(self.spell5_checkbox)
