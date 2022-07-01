@@ -189,9 +189,11 @@ class SpellSlot:
 
 
 class DaySpells:
+    
     def __init__(self, day: Day, spell_slots: dict[str, SpellSlot]):
         self.day = day
         self.spell_slots = spell_slots
+        self.spell_five = True
 
     def spell(self, spell_str: str) -> Spell:
         return self.spell_slots[spell_str].spell
@@ -199,6 +201,16 @@ class DaySpells:
     def times(self, spell_str) -> tuple[Time, Time]:
         spell_slot = self.spell_slots[spell_str]
         return spell_slot.start, spell_slot.end
+
+    @property
+    def spell_five(self) -> bool:
+        return self._spell_five
+
+    @spell_five.setter
+    def spell_five(self, new):
+        if not isinstance(self, bool):
+            raise ValueError("Spell 5 must be a boolean")
+        self._spell_five = new
 
     @property
     def day(self):
