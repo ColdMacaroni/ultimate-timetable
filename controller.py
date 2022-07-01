@@ -11,10 +11,14 @@ class TimetableController:
         self.times_dict = times_dict
 
         self.spells = self.create_spells(self.spell_dict["spells"])
+        
+        #TODO:::::::
+        self.day_spells = self.create_day_spell(self.spells, self.spells["days"])
         # TODO: Create spellslot object for each spell
         # TODO: Create DaySpells classes for each day
 
-    def create_spells(self, spells_dict) -> dict[str, model.Spell]:
+    @staticmethod
+    def create_spells(spells_dict) -> dict[str, model.Spell]:
         spells = dict()
 
         for key, val in spells_dict.items():
@@ -24,7 +28,7 @@ class TimetableController:
             # Nones are free spells, they are None and not just another spell
             # because two types(keys) of spells can be free.
             else:
-                spell = model.Spell("Free Spell", "", "", "", "")
+                spell = model.Spell("Free Spell", "FREE", "", "", "")
 
             spells[key] = spell
 
