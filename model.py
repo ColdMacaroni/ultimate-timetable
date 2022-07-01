@@ -175,11 +175,30 @@ class SpellSlot:
     _start: Time
     _end: Time
 
+    @property
+    def spell(self) -> Spell:
+        return self._spell
+
+    @property
+    def start(self) -> Time:
+        return self._start
+
+    @property
+    def end(self) -> Time:
+        return self._end
+
 
 class DaySpells:
-    def __init__(self, day: Day, spell_slots: list[SpellSlot]):
+    def __init__(self, day: Day, spell_slots: dict[str, SpellSlot]):
         self.day = day
         self.spell_slots = spell_slots
+
+    def spell(self, spell_str: str) -> Spell:
+        return self.spell_slots[spell_str].spell
+
+    def times(self, spell_str) -> tuple[Time, Time]:
+        spell_slot = self.spell_slots[spell_str]
+        return spell_slot.start, spell_slot.end
 
     @property
     def day(self):
@@ -198,7 +217,8 @@ class DaySpells:
 
     @spell_slots.setter
     def spell_slots(self, new):
-        if not all(map(lambda x: isinstance(x, new))):
+        # All must be spellslot
+        if not all(map(lambda x: isinstance(x, SpellSlot), new)):
             raise ValueError("New spell slots list must only"
                              "have SpellSlot dataclass")
 
