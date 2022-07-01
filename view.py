@@ -1,6 +1,29 @@
 from PySide6 import QtWidgets
-
+from model import SpellSlot
 app = QtWidgets.QApplication()
+
+
+class SpellWidget(QtWidgets.QFrame):
+    def __init__(self, spell_slot: SpellSlot, *args):
+        super().__init__(*args)
+
+        self.spell_slot = spell_slot
+        self.spell_code_label = QtWidgets.QLabel(self)
+
+        self.spell_start = QtWidgets.QLabel(self)
+
+        self.spell_end = QtWidgets.QLabel(self)
+        self.initUI()
+
+    def initUI(self):
+        self.setFrameStyle(QtWidgets.QFrame.StyledPanel)
+        main_vbox = QtWidgets.QVBoxLayout()
+
+        main_vbox.addWidget(self.spell_code_label)
+        main_vbox.addWidget(self.spell_end)
+        main_vbox.addWidget(self.spell_start)
+
+        self.setLayout(main_vbox)
 
 
 class TimetableMain(QtWidgets.QMainWindow):
