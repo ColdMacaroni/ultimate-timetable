@@ -1,5 +1,6 @@
 from PySide6 import QtWidgets
-from model import SpellSlot
+from model import SpellSlot, Day
+
 app = QtWidgets.QApplication()
 
 
@@ -41,10 +42,21 @@ class TimetableMain(QtWidgets.QMainWindow):
     def initUI(self):
         self.setCentralWidget(QtWidgets.QWidget())
 
+        # populate dropdown
+        self.day_combobox.addItems([str(day) for day in Day])
+        # TODO: self.day_combobox.curentRowChanged.connect()
+
         # This is the main layout for the window
         vbox = QtWidgets.QVBoxLayout(self.centralWidget())
 
-        vbox.addWidget(self.day_combobox)
-        vbox.addWidget(self.spell5_checkbox)
+        # This will put the combo box and spell 5 checkbox next to each other
+        header_hbox = QtWidgets.QHBoxLayout(self.centralWidget())
+
+        # The stretch is because they look weird when right next to each other
+        header_hbox.addWidget(self.day_combobox)
+        header_hbox.addStretch()
+        header_hbox.addWidget(self.spell5_checkbox)
+
+        vbox.addLayout(header_hbox)
 
         self.centralWidget().setLayout(vbox)
