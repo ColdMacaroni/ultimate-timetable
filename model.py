@@ -37,8 +37,8 @@ class AttendanceCode(Enum):
 
 @dataclass
 class Time:
-    _hour: int
-    _minute: int
+    hour: int
+    minute: int
 
     MINUTES = 60
     HOURS = 24
@@ -183,21 +183,42 @@ class Spell:
 
 @dataclass
 class SpellSlot:
-    _spell: Spell
-    _start: Time
-    _end: Time
+    spell: Spell
+    start: Time
+    end: Time
 
     @property
     def spell(self) -> Spell:
         return self._spell
 
+    @spell.setter
+    def spell(self, new):
+        if not isinstance(new, Spell):
+            raise ValueError("New spell is not of type Spell")
+
+        self._spell = new
+
     @property
     def start(self) -> Time:
         return self._start
 
+    @start.setter
+    def start(self, new):
+        if not isinstance(new, Time):
+            raise ValueError("New start ime is not of type Time")
+
+        self._start = new
+
     @property
     def end(self) -> Time:
         return self._end
+
+    @end.setter
+    def end(self, new):
+        if not isinstance(new, Time):
+            raise ValueError("New end time is not of type Time")
+
+        self._end = new
 
 
 class DaySpells:
