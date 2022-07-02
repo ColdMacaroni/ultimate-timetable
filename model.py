@@ -77,19 +77,31 @@ class Day(Enum):
     FRIDAY = auto()
 
     def __str__(self):
-        match self:
-            case self.MONDAY:
-                return "Monday"
-            case self.TUESDAY:
-                return "Tuesday"
-            case self.WEDNESDAY:
-                return "Wednesday"
-            case self.THURSDAY:
-                return "Thursday"
-            case self.FRIDAY:
-                return "Friday"
-            case _:
-                self
+        reversed_dict = dict(map(reversed, self.str_dict.items()))
+
+        # Capitalize so it looks pretty :^)
+        return reversed_dict[self].capitalize()
+
+    @classmethod
+    def from_str(cls, s: str) -> "Day":
+        if s not in cls.str_dict:
+            raise ValueError(f"{s} is not a valid day")
+
+        return cls.str_dict[s]
+
+    @classmethod
+    @property
+    def str_dict(cls):
+        # These aren't capitalized so its easier to do stuff with
+        str_to_attr = {
+                "monday": cls.MONDAY,
+                "tuesday": cls.TUESDAY,
+                "wednesday": cls.WEDNESDAY,
+                "thursday": cls.THURSDAY,
+                "friday": cls.FRIDAY
+        }
+
+        return str_to_attr
 
 
 @dataclass
