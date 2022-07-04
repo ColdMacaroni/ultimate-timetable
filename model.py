@@ -79,6 +79,8 @@ class Day(Enum):
     FRIDAY = auto()
 
     def __str__(self):
+        """Converts the attribute to a string using self.str_dict
+        Return is capitalized because days are proper nouns."""
         reversed_dict = dict(map(reversed, self.str_dict.items()))
 
         # Capitalize so it looks pretty :^)
@@ -86,6 +88,7 @@ class Day(Enum):
 
     @classmethod
     def from_str(cls, s: str) -> "Day":
+        """Returns an attribute based on self.str_dict"""
         if s not in cls.str_dict:
             raise ValueError(f"{s} is not a valid day")
 
@@ -94,7 +97,9 @@ class Day(Enum):
     @classmethod
     @property
     def str_dict(cls):
-        # These aren't capitalized so its easier to do stuff with
+        """A dictionary with names as strings (in lowercase)
+        that map to the same attributes"""
+        # These aren't capitalized so its easier to do stuff with it
         str_to_attr = {
                 "monday": cls.MONDAY,
                 "tuesday": cls.TUESDAY,
@@ -118,7 +123,9 @@ class Spell:
     teacher_name: str
 
     @classmethod
-    def from_dict(cls, d: dict[str, str]):
+    def from_dict(cls, d: dict[str, str]) -> "Spell":
+        """Creates a spell object from a dictionary.
+        Used to quickly create Spell objects from JSONs"""
         return cls(d["name"],
                    d["code"],
                    d["room"],

@@ -5,6 +5,7 @@ app = QtWidgets.QApplication()
 
 
 class SpellInfoWidget(QtWidgets.QWidget):
+    """Widget that holds the information relating to the clicked spell"""
     def __init__(self, *args):
         super().__init__(*args)
         self.spell_slot = None
@@ -27,6 +28,7 @@ class SpellInfoWidget(QtWidgets.QWidget):
 
         self.setLayout(main_vbox)
 
+    ##
     # spell_slot has a setter unlike the other members because it is expected
     # to be set externally. The other members are widgets which should not be
     # replaced with other widgets. If you replace them, then its your problem.
@@ -47,6 +49,7 @@ class SpellInfoWidget(QtWidgets.QWidget):
 
 
 class TimetableMain(QtWidgets.QMainWindow):
+    """The main window of the timetable. Holds all other widgets"""
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

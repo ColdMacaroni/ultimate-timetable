@@ -20,6 +20,7 @@ def main(spells_fn, times_fn):
     with open(times_fn, 'r') as fp:
         times_data = json.load(fp)
 
+    # the controller handles everything else
     win = TimetableMain()
     con = TimetableController(win, spell_data, times_data)
 

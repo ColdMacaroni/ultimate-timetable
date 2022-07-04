@@ -7,9 +7,10 @@ class SpellInfoController:
     def __init__(self, spell_info_widget: view.SpellInfoWidget):
         self.spell_info_widget = spell_info_widget
 
-    # TODO: Setting how present you are
-
+    # TODO: Setting attendance
     def update_labels(self, spell_slot: view.SpellSlot):
+        """Changes the labels of this controller's info widget to match the
+        given spell slot"""
         self.spell_info_widget.spell_code_label.setText(
             spell_slot.spell.class_code
         )
@@ -56,7 +57,7 @@ class TimetableController:
 
     @staticmethod
     def create_spells(spells_dict) -> dict[str, model.Spell]:
-
+        """Creates Spell objects from the dictionary given"""
         spells = dict()
 
         for key, val in spells_dict.items():
@@ -167,5 +168,6 @@ class TimetableController:
             widget.setLayout(vbox)
 
     def run(self):
+        """This method makes the whole Qt stuff appear"""
         self.timetable_window.show()
         view.app.exec()
