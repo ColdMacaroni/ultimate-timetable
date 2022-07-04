@@ -173,18 +173,10 @@ class TimetableController:
                 button.hide()
 
                 # We dont want to keep showing the info for a spell that doesnt
-                # exist. Don't do this if there was only one spell to begin
-                # with
-                if last_idx > 0:
-                    # Grab the spell slot before the last one
-                    # We need the actual object and not the button
-                    prev_spell_slot = self.day_spells[str(day).lower()]\
-                        .spell_slots[last_idx - 1]
-
-                    self.spell_info_controller.update_labels(prev_spell_slot)
-
-                # We cant replace the info with anything so we'll just empty it
-                else:
+                # exist. We'll check if the current displayed is the same as
+                # the last one. And if it is, we'll just clear the information
+                last_spell = self.day_spells[str(day).lower()].spell_slots[-1]
+                if self.timetable_window.spell_info.spell_slot is last_spell:
                     self.timetable_window.spell_info.clear()
 
     def populate_tabs(self):
