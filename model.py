@@ -186,7 +186,7 @@ class SpellSlot:
     spell: Spell
     start: Time
     end: Time
-    #TODO: attr for being present
+    # TODO: attr for being present
 
     @property
     def spell(self) -> Spell:
@@ -244,13 +244,13 @@ class DaySpells:
         spell_slot = self.spell_slots[spell_str]
         return spell_slot.start, spell_slot.end
 
-    @classmethod
     @property
+    @classmethod
     def spell_five(cls) -> bool:
         return cls._spell_five
 
-    @classmethod
     @spell_five.setter
+    @classmethod
     def spell_five(cls, new):
         if not isinstance(cls, bool):
             raise ValueError("Spell 5 must be a boolean")

@@ -7,7 +7,7 @@ app = QtWidgets.QApplication()
 class SpellInfoWidget(QtWidgets.QWidget):
     def __init__(self, *args):
         super().__init__(*args)
-        #TODO: Spellslot object
+        # TODO: Spellslot object
 
         self.spell_code_label = QtWidgets.QLabel(self)
         self.spell_name_label = QtWidgets.QLabel(self)
@@ -16,7 +16,7 @@ class SpellInfoWidget(QtWidgets.QWidget):
 
         self.time_label = QtWidgets.QLabel(self)
         self.initUI()
-    
+
     def initUI(self):
         main_vbox = QtWidgets.QVBoxLayout()
 
@@ -35,7 +35,10 @@ class TimetableMain(QtWidgets.QMainWindow):
         # For picking days
         # self.day_combobox = QtWidgets.QComboBox(self)
         self.days_tabwidget = QtWidgets.QTabWidget(self)
-        self.day_widgets = {day: QtWidgets.QWidget(self.days_tabwidget) for day in Day}
+        self.day_widgets = {
+            day: QtWidgets.QWidget(self.days_tabwidget)
+            for day in Day
+        }
 
         # For setting if spell 5 exists
         self.spell5_checkbox = QtWidgets.QCheckBox("Spell 5", self)
@@ -52,9 +55,11 @@ class TimetableMain(QtWidgets.QMainWindow):
         # Populate tabwidget
         for name, widg in self.day_widgets.items():
             self.days_tabwidget.addTab(widg, str(name))
-        
+
         # Put the tabs on the left so we dont need to scroll
-        self.days_tabwidget.setTabPosition(QtWidgets.QTabWidget.TabPosition.West)
+        self.days_tabwidget.setTabPosition(
+            QtWidgets.QTabWidget.TabPosition.West
+        )
 
         # This is the main layout for the window
         hbox = QtWidgets.QHBoxLayout(self.centralWidget())
