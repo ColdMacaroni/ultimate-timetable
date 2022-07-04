@@ -142,8 +142,13 @@ class TimetableController:
             for spell_slot in spell_slots.values():
                 button = view.QtWidgets.QPushButton(widget)
                 button.setText(
-                    f"{spell_slot.spell.class_code}\n"
-                    f"Room {spell_slot.spell.class_room}\n"
+                    f"{spell_slot.spell.class_code}\n" +
+                    (
+                        # This doesnt show the room if the spell is free
+                        # The newline is keep so all have the same height
+                        "\n" if spell_slot.spell.class_code == "FREE"
+                        else f"Room {spell_slot.spell.class_room}\n"
+                    ) +
                     f"{spell_slot.start} - {spell_slot.end}"
                 )
 
