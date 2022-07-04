@@ -26,7 +26,7 @@ class SpellInfoController:
             f"{spell_slot.start} - {spell_slot.end}"
         )
 
-        self.spell_info_widget.spell_info_widget.spell_slot = spell_slot
+        self.spell_info_widget.spell_slot = spell_slot
 
 
 class TimetableController:
@@ -82,7 +82,7 @@ class TimetableController:
             spells: dict[str, model.Spell],
             spell_order: dict[str, list[str]],
             spell_times: dict[str, list[dict[str, list[int, int]]]]
-            ) -> dict[str, dict[str, model.SpellSlot]]:
+            ) -> dict[str, model.DaySpells]:
         """
         This function creates SpellSlot objects and creates a DaySpells
         object from them.
@@ -95,7 +95,7 @@ class TimetableController:
         days = tuple(model.Day.str_dict.keys())
 
         for day in days:
-            spell_slots = dict()
+            spell_slots = list()
 
             # Grab the idx as well to index the spell_times dict correctly
             for idx, spell_id in enumerate(spell_order[day]):
@@ -106,12 +106,17 @@ class TimetableController:
                 time_start = model.Time(*times_dict["start"])
                 time_end = model.Time(*times_dict["end"])
 
-                spell_slots[spell_id] = model.SpellSlot(
-                    spell, time_start, time_end, model.AttendanceCode.UNKNOWN
+                spell_slots.append(
+                    model.SpellSlot(
+                        spell, time_start, time_end,
+                        model.AttendanceCode.UNKNOWN
+                    )
                 )
 
             # Will keep as a string so its easier to work with combobox
-            day_spells[day] = spell_slots
+            day_spells[day] = model.DaySpells(
+                model.Day.from_str(day), spell_slots
+            )
 
         return day_spells
 
@@ -135,11 +140,11 @@ class TimetableController:
         """Adds buttons for all the spells on a day tab"""
         for day in model.Day:
             widget = self.timetable_window.day_widgets[day]
-            spell_slots = self.day_spells[str(day).lower()]
+            day_spell = self.day_spells[str(day).lower()]
 
             vbox = view.QtWidgets.QVBoxLayout(widget)
 
-            for spell_slot in spell_slots.values():
+            for spell_slot in day_spell.spell_slots:
                 button = view.QtWidgets.QPushButton(widget)
                 button.setText(
                     f"{spell_slot.spell.class_code}\n" +

@@ -251,23 +251,21 @@ class SpellSlot:
 class DaySpells:
     _spell_five = True
 
-    def __init__(self, day: Day, spell_slots: dict[str, SpellSlot]):
+    def __init__(self, day: Day, spell_slots: list[SpellSlot]):
         self.day = day
         self.spell_slots = spell_slots
 
-    def spell(self, spell_str: str) -> Spell:
+    def spell(self, idx) -> SpellSlot:
         """
-        Returns the spell object of the slot pointed by the str.
-        The str being either a number or "ako"
+        Returns the spellslot object of the slot pointed by the index.
         """
-        return self.spell_slots[spell_str].spell
+        return self.spell_slots[idx]
 
-    def times(self, spell_str) -> tuple[Time, Time]:
+    def times(self, idx) -> tuple[Time, Time]:
         """
-        Returns the start and end Time objects of the slot pointed by the str.
-        The str being either a number or "ako"
+        Returns the start and end Time objects of slot pointed by the index.
         """
-        spell_slot = self.spell_slots[spell_str]
+        spell_slot = self.spell_slots[idx]
         return spell_slot.start, spell_slot.end
 
     @property
