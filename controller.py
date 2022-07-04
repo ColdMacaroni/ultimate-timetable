@@ -3,6 +3,19 @@ import model
 import json
 
 
+class SpellInfoController:
+    def __init__(self, spell_info_widget: view.SpellInfoWidget):
+        self.spell_info_widget = spell_info_widget
+
+    def update_labels(self, spell_slot: view.SpellSlot):
+        self.spell_code_label.setText(spell_slot.spell.class_code)
+        self.spell_name_label.setText(spell_slot.spell.class_name)
+
+        self.teacher_name_label.setText(f"{spell_slot.spell.teacher_name} ({spell_slot.spell.teacher_code})")
+        
+        self.time_label.setText(f"{spell_slot.start} - {spell_slot.end}")
+
+
 class TimetableController:
     def __init__(self, timetable_window: view.TimetableMain,
                  spell_dict: dict, times_dict: dict):
@@ -78,6 +91,11 @@ class TimetableController:
             day_spells[day] = spell_slots
 
         return day_spells
+    
+    def populate_tabs(self):
+        for day in model.Day:
+            widget = self.timetable_window.day_widgets[day]
+            spells = self.day_spells
 
     def run(self):
         self.timetable_window.show()
