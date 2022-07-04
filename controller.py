@@ -2,6 +2,9 @@ import view
 import model
 import json
 
+# For dealing with spell slots
+FREE_SPELL_CODE = "FREE"
+
 
 class SpellInfoController:
     def __init__(self, spell_info_widget: view.SpellInfoWidget):
@@ -12,19 +15,34 @@ class SpellInfoController:
         """Changes the labels of this controller's info widget to match the
         given spell slot"""
         self.spell_info_widget.spell_code_label.setText(
-            spell_slot.spell.class_code
+            f"Code: {spell_slot.spell.class_code}"
         )
         self.spell_info_widget.spell_name_label.setText(
-            spell_slot.spell.class_name
+            f"Class name: {spell_slot.spell.class_name}"
         )
 
-        self.spell_info_widget.teacher_name_label.setText(
-            f"{spell_slot.spell.teacher_name} "
-            f"({spell_slot.spell.teacher_code})"
-        )
+        # These dont have any info if the spells are free
+        if spell_slot.spell.class_code != FREE_SPELL_CODE:
+            self.spell_info_widget.teacher_name_label.show()
+            self.spell_info_widget.teacher_name_label.setText(
+                f"Teacher: {spell_slot.spell.teacher_name} "
+                f"({spell_slot.spell.teacher_code})"
+            )
+
+            self.spell_info_widget.room_label.show()
+            self.spell_info_widget.room_label.setText(
+                f"Room: {spell_slot.spell.class_room}"
+            )
+
+        else:
+            self.spell_info_widget.teacher_name_label.hide()
+            self.spell_info_widget.teacher_name_label.setText("")
+
+            self.spell_info_widget.room_label.hide()
+            self.spell_info_widget.room_label.setText("")
 
         self.spell_info_widget.time_label.setText(
-            f"{spell_slot.start} - {spell_slot.end}"
+            f"Duration: {spell_slot.start} - {spell_slot.end}"
         )
 
         self.spell_info_widget.spell_slot = spell_slot
@@ -72,7 +90,7 @@ class TimetableController:
             # sixth spell, it would also affect the free spell on wednesdays
             # which is different.
             else:
-                spell = model.Spell("Free Spell", "FREE", "", "", "")
+                spell = model.Spell("Free Spell", FREE_SPELL_CODE, "", "", "")
 
             spells[key] = spell
 
@@ -152,7 +170,7 @@ class TimetableController:
                     (
                         # This doesnt show the room if the spell is free
                         # The newline is keep so all have the same height
-                        "\n" if spell_slot.spell.class_code == "FREE"
+                        "\n" if spell_slot.spell.class_code == FREE_SPELL_CODE
                         else f"Room {spell_slot.spell.class_room}\n"
                     ) +
                     f"{spell_slot.start} - {spell_slot.end}"
