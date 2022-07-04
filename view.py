@@ -8,25 +8,36 @@ class SpellInfoWidget(QtWidgets.QWidget):
     """Widget that holds the information relating to the clicked spell"""
     def __init__(self, *args):
         super().__init__(*args)
+        self.container_widget = QtWidgets.QWidget(self)
+
         self.spell_slot = None
 
-        self.spell_code_label = QtWidgets.QLabel(self)
-        self.spell_name_label = QtWidgets.QLabel(self)
+        self.spell_name_label = QtWidgets.QLabel(self.container_widget)
+        self.spell_code_label = QtWidgets.QLabel(self.container_widget)
+        
+        self.room_label = QtWidgets.QLabel(self.container_widget)
 
-        self.teacher_name_label = QtWidgets.QLabel(self)
+        self.teacher_name_label = QtWidgets.QLabel(self.container_widget)
 
-        self.time_label = QtWidgets.QLabel(self)
+        self.time_label = QtWidgets.QLabel(self.container_widget)
         self.initUI()
 
     def initUI(self):
-        main_vbox = QtWidgets.QVBoxLayout()
+        holder_layout = QtWidgets.QVBoxLayout(self)
+        vbox = QtWidgets.QVBoxLayout(self.container_widget)
 
-        main_vbox.addWidget(self.spell_code_label)
-        main_vbox.addWidget(self.spell_name_label)
-        main_vbox.addWidget(self.teacher_name_label)
-        main_vbox.addWidget(self.time_label)
+        vbox.addWidget(self.spell_code_label)
+        vbox.addWidget(self.spell_name_label)
+        vbox.addWidget(self.room_label)
+        vbox.addWidget(self.teacher_name_label)
+        vbox.addWidget(self.time_label)
 
-        self.setLayout(main_vbox)
+        # These keeps all children compact and stops them from being stretched
+        vbox.setSizeConstraint(QtWidgets.QLayout.SetFixedSize)
+
+        self.container_widget.setLayout(vbox)
+        holder_layout.addLayout(vbox)
+        self.setLayout(holder_layout)
 
     ##
     # spell_slot has a setter unlike the other members because it is expected
@@ -71,7 +82,7 @@ class TimetableMain(QtWidgets.QMainWindow):
 
     def initUI(self):
         self.setCentralWidget(QtWidgets.QWidget())
-        self.setGeometry(QtCore.QRect(100, 100, 400, 500))
+        self.setGeometry(QtCore.QRect(100, 100, 440, 500))
 
         # Populate tabwidget
         for name, widg in self.day_widgets.items():
