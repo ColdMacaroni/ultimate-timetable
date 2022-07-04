@@ -68,7 +68,7 @@ class TimetableMain(QtWidgets.QMainWindow):
 
     def initUI(self):
         self.setCentralWidget(QtWidgets.QWidget())
-        self.setGeometry(QtCore.QRect(100, 100, 600, 500))
+        self.setGeometry(QtCore.QRect(100, 100, 400, 500))
 
         # Populate tabwidget
         for name, widg in self.day_widgets.items():
@@ -90,7 +90,9 @@ class TimetableMain(QtWidgets.QMainWindow):
         left_vbox.addWidget(self.spell5_checkbox)
         left_vbox.addWidget(self.days_tabwidget)
 
-        hbox.addLayout(left_vbox)
-        hbox.addWidget(self.spell_info)
+        # For setting the ratio of each widget
+        # https://stackoverflow.com/a/26897934
+        hbox.addLayout(left_vbox, 2)
+        hbox.addWidget(self.spell_info, 3)
 
         self.centralWidget().setLayout(hbox)
