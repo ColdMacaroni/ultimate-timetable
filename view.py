@@ -1,28 +1,28 @@
 from PySide6 import QtWidgets, QtCore
-from model import SpellSlot, Day
+from model import Spell, SpellSlot, Day
 
 app = QtWidgets.QApplication()
 
 
-class SpellWidget(QtWidgets.QFrame):
-    def __init__(self, spell_slot: SpellSlot, *args):
+class SpellInfoWidget(QtWidgets.QWidget):
+    def __init__(self, *args):
         super().__init__(*args)
 
-        self.spell_slot = spell_slot
         self.spell_code_label = QtWidgets.QLabel(self)
+        self.spell_name_label = QtWidgets.QLabel(self)
 
-        self.spell_start = QtWidgets.QLabel(self)
+        self.teacher_name_label = QtWidgets.QLabel(self)
 
-        self.spell_end = QtWidgets.QLabel(self)
+        self.time_label = QtWidgets.QLabel(self)
         self.initUI()
-
+    
     def initUI(self):
-        self.setFrameStyle(QtWidgets.QFrame.StyledPanel)
         main_vbox = QtWidgets.QVBoxLayout()
 
         main_vbox.addWidget(self.spell_code_label)
-        main_vbox.addWidget(self.spell_end)
-        main_vbox.addWidget(self.spell_start)
+        main_vbox.addWidget(self.spell_name_label)
+        main_vbox.addWidget(self.teacher_name_label)
+        main_vbox.addWidget(self.time_label)
 
         self.setLayout(main_vbox)
 
@@ -39,13 +39,15 @@ class TimetableMain(QtWidgets.QMainWindow):
         # For setting if spell 5 exists
         self.spell5_checkbox = QtWidgets.QCheckBox("Spell 5", self)
 
+        # For actually viewing the info
+        self.spell_info = SpellInfoWidget(self)
+
         self.initUI()
 
     def initUI(self):
         self.setCentralWidget(QtWidgets.QWidget())
-        self.setGeometry(QtCore.QRect(100, 100, 400, 500))
+        self.setGeometry(QtCore.QRect(100, 100, 600, 500))
 
-        # TODO: self.day_combobox.curentRowChanged.connect()
         # Populate tabwidget
         for name, widg in self.day_widgets.items():
             self.days_tabwidget.addTab(widg, name)
@@ -65,5 +67,6 @@ class TimetableMain(QtWidgets.QMainWindow):
         left_vbox.addWidget(self.days_tabwidget)
 
         hbox.addLayout(left_vbox)
+        hbox.addWidget(self.spell_info)
 
         self.centralWidget().setLayout(hbox)
