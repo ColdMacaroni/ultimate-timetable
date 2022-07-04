@@ -8,6 +8,7 @@ class AttendanceCode(Enum):
     ABSENT = auto()
     MEDICAL = auto()
     CANCELLED = auto()
+    UNKNOWN = auto()
 
     def __str__(self):
         reversed_dict = dict(map(reversed, self.str_dict.items()))
@@ -29,7 +30,8 @@ class AttendanceCode(Enum):
             "L": self.LATE,
             "?": self.ABSENT,
             "M": self.MEDICAL,
-            "F": self.CANCELLED
+            "F": self.CANCELLED,
+            " ": self.UNKNOWN
         }
 
         return str_to_attr
@@ -233,6 +235,17 @@ class SpellSlot:
             )
 
         self._attendance = new
+
+    def connect_with_self(self, signal, function, *args):
+        """
+        This method connects the signal with a call to the fuction using
+        self as the first argument and *args as the rest.
+        It is done this way because with a for loop, the function call would
+        only use the last variable in the loop (python moment).
+        With the method, you can be sure the function is being called with this
+        specific SpellSlot.
+        """
+        signal.connect(lambda: function(self, *args))
 
 
 class DaySpells:

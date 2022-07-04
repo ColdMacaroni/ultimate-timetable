@@ -10,14 +10,23 @@ class SpellInfoController:
     # TODO: Setting how present you are
 
     def update_labels(self, spell_slot: view.SpellSlot):
-        # TODO: Set spell for later setting present
-        self.spell_code_label.setText(spell_slot.spell.class_code)
-        self.spell_name_label.setText(spell_slot.spell.class_name)
+        self.spell_info_widget.spell_code_label.setText(
+            spell_slot.spell.class_code
+        )
+        self.spell_info_widget.spell_name_label.setText(
+            spell_slot.spell.class_name
+        )
 
-        self.teacher_name_label.setText(f"{spell_slot.spell.teacher_name} "
-                                        f"({spell_slot.spell.teacher_code})")
+        self.spell_info_widget.teacher_name_label.setText(
+            f"{spell_slot.spell.teacher_name} "
+            f"({spell_slot.spell.teacher_code})"
+        )
 
-        self.time_label.setText(f"{spell_slot.start} - {spell_slot.end}")
+        self.spell_info_widget.time_label.setText(
+            f"{spell_slot.start} - {spell_slot.end}"
+        )
+
+        self.spell_info_widget.spell_info_widget.spell_slot = spell_slot
 
 
 class TimetableController:
@@ -26,6 +35,9 @@ class TimetableController:
         self.timetable_window = timetable_window
         self.spell_dict = spell_dict
         self.times_dict = times_dict
+        self.spell_info_controller = SpellInfoController(
+            self.timetable_window.spell_info
+        )
 
         self.spells = self.create_spells(self.spell_dict["spells"])
 
@@ -39,6 +51,8 @@ class TimetableController:
         self.timetable_window.spell5_checkbox.stateChanged.connect(
             self.tw_spell5_checkbox_stateChanged
         )
+
+        self.populate_tabs()
 
     @staticmethod
     def create_spells(spells_dict) -> dict[str, model.Spell]:
@@ -68,7 +82,7 @@ class TimetableController:
             spells: dict[str, model.Spell],
             spell_order: dict[str, list[str]],
             spell_times: dict[str, list[dict[str, list[int, int]]]]
-            ) -> dict[str, model.SpellSlot]:
+            ) -> dict[str, dict[str, model.SpellSlot]]:
         """
         This function creates SpellSlot objects and creates a DaySpells
         object from them.
@@ -93,7 +107,7 @@ class TimetableController:
                 time_end = model.Time(*times_dict["end"])
 
                 spell_slots[spell_id] = model.SpellSlot(
-                    spell, time_start, time_end
+                    spell, time_start, time_end, model.AttendanceCode.UNKNOWN
                 )
 
             # Will keep as a string so its easier to work with combobox
@@ -118,10 +132,29 @@ class TimetableController:
             raise ValueError("Invalid checkbox state")
 
     def populate_tabs(self):
-        # TODO
+        """Adds buttons for all the spells on a day tab"""
         for day in model.Day:
             widget = self.timetable_window.day_widgets[day]
-            spells = self.day_spells[str(day)]
+            spell_slots = self.day_spells[str(day).lower()]
+
+            vbox = view.QtWidgets.QVBoxLayout(widget)
+
+            for spell_slot in spell_slots.values():
+                button = view.QtWidgets.QPushButton(widget)
+                button.setText(
+                    f"{spell_slot.spell.class_code}\n"
+                    f"Room {spell_slot.spell.class_room}\n"
+                    f"{spell_slot.start} - {spell_slot.end}"
+                )
+
+                spell_slot.connect_with_self(
+                    button.clicked,
+                    self.spell_info_controller.update_labels
+                )
+
+                vbox.addWidget(button)
+
+            widget.setLayout(vbox)
 
     def run(self):
         self.timetable_window.show()
