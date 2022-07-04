@@ -39,6 +39,21 @@ class SpellInfoWidget(QtWidgets.QWidget):
         holder_layout.addLayout(vbox)
         self.setLayout(holder_layout)
 
+    def clear(self):
+        # We'll go through each attribute of this class and clear them if they
+        # are a clearable type. Not using hasattr because some clearing
+        # behaviour may be unwanted. Like clearing a dictionary
+
+        # Types that can be cleared
+        clearable = (QtWidgets.QLabel, QtWidgets.QListWidget)
+
+        # Expression for going through this objects attributes -> vars(self)
+        # learnt from a comment by juanpa.arrivillaga in
+        # https://stackoverflow.com/a/67220630
+        for value in vars(self).values():
+            if any(map(lambda type_: isinstance(value, type_), clearable)):
+                value.clear()
+
     ##
     # spell_slot has a setter unlike the other members because it is expected
     # to be set externally. The other members are widgets which should not be
