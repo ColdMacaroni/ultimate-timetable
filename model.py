@@ -186,6 +186,7 @@ class SpellSlot:
     spell: Spell
     start: Time
     end: Time
+    #TODO: attr for being present
 
     @property
     def spell(self) -> Spell:

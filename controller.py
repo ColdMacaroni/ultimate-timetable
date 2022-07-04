@@ -7,7 +7,10 @@ class SpellInfoController:
     def __init__(self, spell_info_widget: view.SpellInfoWidget):
         self.spell_info_widget = spell_info_widget
 
+    # TODO: Setting how present you are
+
     def update_labels(self, spell_slot: view.SpellSlot):
+    # TODO: Set spell for later setting present
         self.spell_code_label.setText(spell_slot.spell.class_code)
         self.spell_name_label.setText(spell_slot.spell.class_name)
 
@@ -93,9 +96,10 @@ class TimetableController:
         return day_spells
     
     def populate_tabs(self):
+        #TODO
         for day in model.Day:
             widget = self.timetable_window.day_widgets[day]
-            spells = self.day_spells
+            spells = self.day_spells[str(day)]
 
     def run(self):
         self.timetable_window.show()
