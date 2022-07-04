@@ -186,7 +186,7 @@ class SpellSlot:
     spell: Spell
     start: Time
     end: Time
-    # TODO: attr for being present
+    attendance: AttendanceCode
 
     @property
     def spell(self) -> Spell:
@@ -206,7 +206,7 @@ class SpellSlot:
     @start.setter
     def start(self, new):
         if not isinstance(new, Time):
-            raise ValueError("New start ime is not of type Time")
+            raise ValueError("New start time is not of type Time")
 
         self._start = new
 
@@ -220,6 +220,19 @@ class SpellSlot:
             raise ValueError("New end time is not of type Time")
 
         self._end = new
+
+    @property
+    def attendance(self) -> AttendanceCode:
+        return self._attendance
+
+    @attendance.setter
+    def attendance(self, new):
+        if not isinstance(new, AttendanceCode):
+            raise ValueError(
+                "New attendance code is not of type AttendanceCode"
+            )
+
+        self._attendance = new
 
 
 class DaySpells:
