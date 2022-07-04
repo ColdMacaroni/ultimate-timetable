@@ -14,7 +14,7 @@ class SpellInfoWidget(QtWidgets.QWidget):
 
         self.spell_name_label = QtWidgets.QLabel(self.container_widget)
         self.spell_code_label = QtWidgets.QLabel(self.container_widget)
-        
+
         self.room_label = QtWidgets.QLabel(self.container_widget)
 
         self.teacher_name_label = QtWidgets.QLabel(self.container_widget)
