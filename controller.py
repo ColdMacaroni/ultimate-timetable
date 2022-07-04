@@ -155,6 +155,38 @@ class TimetableController:
         else:
             raise ValueError("Invalid checkbox state")
 
+        # Make last button disappear or appear depending
+        for day, tab in self.timetable_window.day_widgets.items():
+            vbox = tab.layout()
+
+            # In the rare case that the layout is empty
+            if vbox.count() == 0:
+                continue
+
+            last_idx = vbox.count() - 1
+
+            button = vbox.itemAt(last_idx).widget()
+
+            if model.DaySpells.spell_five:
+                button.show()
+            else:
+                button.hide()
+
+                # We dont want to keep showing the info for a spell that doesnt
+                # exist. Don't do this if there was only one spell to begin
+                # with
+                if last_idx > 0:
+                    # Grab the spell slot before the last one
+                    # We need the actual object and not the button
+                    prev_spell_slot = self.day_spells[str(day).lower()]\
+                        .spell_slots[last_idx - 1]
+
+                    self.spell_info_controller.update_labels(prev_spell_slot)
+
+                # We cant replace the info with anything so we'll just empty it
+                else:
+                    self.timetable_window.spell_info.clear()
+
     def populate_tabs(self):
         """Adds buttons for all the spells on a day tab"""
         for day in model.Day:
