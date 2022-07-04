@@ -10,12 +10,13 @@ class SpellInfoController:
     # TODO: Setting how present you are
 
     def update_labels(self, spell_slot: view.SpellSlot):
-    # TODO: Set spell for later setting present
+        # TODO: Set spell for later setting present
         self.spell_code_label.setText(spell_slot.spell.class_code)
         self.spell_name_label.setText(spell_slot.spell.class_name)
 
-        self.teacher_name_label.setText(f"{spell_slot.spell.teacher_name} ({spell_slot.spell.teacher_code})")
-        
+        self.teacher_name_label.setText(f"{spell_slot.spell.teacher_name} "
+                                        f"({spell_slot.spell.teacher_code})")
+
         self.time_label.setText(f"{spell_slot.start} - {spell_slot.end}")
 
 
@@ -32,6 +33,11 @@ class TimetableController:
             self.spells,
             self.spell_dict["days"],
             self.times_dict
+        )
+
+        self.timetable_window.spell5_checkbox.setChecked(True)
+        self.timetable_window.spell5_checkbox.stateChanged.connect(
+            self.tw_spell5_checkbox_stateChanged
         )
 
     @staticmethod
@@ -94,9 +100,25 @@ class TimetableController:
             day_spells[day] = spell_slots
 
         return day_spells
-    
+
+    def tw_spell5_checkbox_stateChanged(self, state):
+        """
+        Sets the bool in DaySpell depending on the checkbox's state
+        tw stands for timetable_window
+        """
+        # 0 is unchecked, checked is 2.
+        # 1 is for half checked in tri state checkboxes
+        if state == 2:
+            model.DaySpells.spell_five = True
+
+        elif state == 0:
+            model.DaySpells.spell_five = False
+
+        else:
+            raise ValueError("Invalid checkbox state")
+
     def populate_tabs(self):
-        #TODO
+        # TODO
         for day in model.Day:
             widget = self.timetable_window.day_widgets[day]
             spells = self.day_spells[str(day)]
