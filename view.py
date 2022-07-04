@@ -1,5 +1,5 @@
 from PySide6 import QtWidgets, QtCore
-from model import Spell, SpellSlot, Day
+from model import SpellSlot, Day
 
 app = QtWidgets.QApplication()
 
@@ -7,7 +7,7 @@ app = QtWidgets.QApplication()
 class SpellInfoWidget(QtWidgets.QWidget):
     def __init__(self, *args):
         super().__init__(*args)
-        # TODO: Spellslot object
+        self.spell_slot = None
 
         self.spell_code_label = QtWidgets.QLabel(self)
         self.spell_name_label = QtWidgets.QLabel(self)
@@ -26,6 +26,24 @@ class SpellInfoWidget(QtWidgets.QWidget):
         main_vbox.addWidget(self.time_label)
 
         self.setLayout(main_vbox)
+
+    # spell_slot has a setter unlike the other members because it is expected
+    # to be set externally. The other members are widgets which should not be
+    # replaced with other widgets. If you replace them, then its your problem.
+    @property
+    def spell_slot(self) -> SpellSlot:
+        return self._spell_slot
+
+    @spell_slot.setter
+    def spell_slot(self, new):
+        # We'll accept None in the cases where the spellslot hasnt
+        # been selected, such as when creating a new SpellInfoWidget or
+        # changing the tab in the main window.
+        if not (isinstance(new, SpellSlot) or new is None):
+            raise ValueError("spell_slot must be set to a SpellSlot object"
+                             " or None")
+
+        self._spell_slot = new
 
 
 class TimetableMain(QtWidgets.QMainWindow):
