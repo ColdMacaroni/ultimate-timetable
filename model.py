@@ -256,6 +256,7 @@ class SpellSlot:
 
 
 class DaySpells:
+    # TODO! Replace all references to spell 5 with last spell
     _spell_five = True
 
     def __init__(self, day: Day, spell_slots: list[SpellSlot]):

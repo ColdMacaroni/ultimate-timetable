@@ -20,6 +20,8 @@ class SpellInfoWidget(QtWidgets.QWidget):
         self.teacher_name_label = QtWidgets.QLabel(self.container_widget)
 
         self.time_label = QtWidgets.QLabel(self.container_widget)
+        # TODO: Combobox for attendance
+        # TODO: listwidget for homework (not needed. Do only if need to flex)
         self.initUI()
 
     def initUI(self):
@@ -87,6 +89,7 @@ class TimetableMain(QtWidgets.QMainWindow):
             for day in Day
         }
 
+        # TODO! Replace all references to spell 5 with last spell
         # For setting if spell 5 exists
         self.spell5_checkbox = QtWidgets.QCheckBox("Spell 5", self)
 
@@ -111,7 +114,7 @@ class TimetableMain(QtWidgets.QMainWindow):
         # This is the main layout for the window
         hbox = QtWidgets.QHBoxLayout(self.centralWidget())
 
-        # This will put the combo box and spell 5 checkbox next to each other
+        # This will put the checkbox above the tabwidget
         left_vbox = QtWidgets.QVBoxLayout(self.centralWidget())
 
         # The stretch is because they look weird when right next to each other
