@@ -14,6 +14,10 @@ class SpellInfoController:
     def update_labels(self, spell_slot: view.SpellSlot):
         """Changes the labels of this controller's info widget to match the
         given spell slot"""
+        # Form is hidden when the info is cleared, we need to make sure it is
+        # shown
+        self.spell_info_widget .form_widget.show()
+
         self.spell_info_widget.spell_code_label.setText(
             f"Code: {spell_slot.spell.class_code}"
         )

@@ -20,6 +20,11 @@ class SpellInfoWidget(QtWidgets.QWidget):
         self.teacher_name_label = QtWidgets.QLabel(self.container_widget)
 
         self.time_label = QtWidgets.QLabel(self.container_widget)
+
+        # We need a specific widget for the forms because we cant hide a layout
+        # and clearing isnt what we want
+        self.form_widget = QtWidgets.QWidget(self.container_widget)
+        self.attendance_combobox = QtWidgets.QComboBox(self.form_widget)
         # TODO: Combobox for attendance
         # TODO: listwidget for homework (not needed. Do only if need to flex)
         self.initUI()
@@ -34,6 +39,12 @@ class SpellInfoWidget(QtWidgets.QWidget):
         vbox.addWidget(self.teacher_name_label)
         vbox.addWidget(self.time_label)
 
+        form_layout = QtWidgets.QFormLayout(self.container_widget)
+        form_layout.addRow("Attendance: ", self.attendance_combobox)
+
+        self.form_widget.setLayout(form_layout)
+        vbox.addWidget(self.form_widget)
+
         # These keeps all children compact and stops them from being stretched
         vbox.setSizeConstraint(QtWidgets.QLayout.SetFixedSize)
 
@@ -42,6 +53,11 @@ class SpellInfoWidget(QtWidgets.QWidget):
         self.setLayout(holder_layout)
 
     def clear(self):
+        """
+        This method makes all the children of this widget practically invisible
+        The reason for doing this and not just .hide() is because .hide() would
+        mess up the layout.
+        """
         # We'll go through each attribute of this class and clear them if they
         # are a clearable type. Not using hasattr because some clearing
         # behaviour may be unwanted. Like clearing a dictionary
@@ -55,6 +71,11 @@ class SpellInfoWidget(QtWidgets.QWidget):
         for value in vars(self).values():
             if any(map(lambda type_: isinstance(value, type_), clearable)):
                 value.clear()
+
+        # We dont want to clear the combobox because its values are the same
+        # for all the spells. We'll just hide it and reshow it when a new
+        # spell is shown
+        self.form_widget.hide()
 
     ##
     # spell_slot has a setter unlike the other members because it is expected
@@ -110,6 +131,10 @@ class TimetableMain(QtWidgets.QMainWindow):
         self.days_tabwidget.setTabPosition(
             QtWidgets.QTabWidget.TabPosition.West
         )
+
+        # Make sure spell info isnt showing when we start as there is
+        # nothing selected
+        self.spell_info.clear()
 
         # This is the main layout for the window
         hbox = QtWidgets.QHBoxLayout(self.centralWidget())
