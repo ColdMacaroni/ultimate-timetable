@@ -31,7 +31,7 @@ class AttendanceCode(Enum):
             "?": self.ABSENT,
             "M": self.MEDICAL,
             "F": self.CANCELLED,
-            " ": self.UNKNOWN
+            "": self.UNKNOWN
         }
 
         return str_to_attr

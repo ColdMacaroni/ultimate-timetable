@@ -1,5 +1,5 @@
-import view
-import model
+from timetable import view
+from timetable import model
 import json
 
 # For dealing with spell slots

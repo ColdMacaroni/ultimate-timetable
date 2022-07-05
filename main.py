@@ -1,8 +1,8 @@
 ##
 # main.py
 
-from controller import TimetableController
-from view import TimetableMain
+from timetable.controller import TimetableController
+from timetable.view import TimetableMain
 from sys import argv
 import json
 

@@ -1,5 +1,5 @@
 from PySide6 import QtWidgets, QtCore
-from model import SpellSlot, Day
+from timetable.model import SpellSlot, Day
 
 app = QtWidgets.QApplication()
 
