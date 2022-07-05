@@ -133,26 +133,26 @@ class Spell:
                    d["teacher_name"])
 
     @property
-    def class_code(self) -> str:
-        return self._class_code
-
-    @class_code.setter
-    def class_code(self, new) -> str:
-        if not isinstance(new, str):
-            raise ValueError("Class code must be a string")
-
-        self._class_code = new
-
-    @property
     def class_name(self) -> str:
         return self._class_name
 
     @class_name.setter
     def class_name(self, new) -> str:
-        if not isinstance(new, str):
-            raise ValueError("Class name must be a string")
+        if not isinstance(new, str) or len(new) == 0:
+            raise ValueError("Class name must be a non-empty string")
 
         self._class_name = new
+
+    @property
+    def class_code(self) -> str:
+        return self._class_code
+
+    @class_code.setter
+    def class_code(self, new) -> str:
+        if not isinstance(new, str) or len(new) == 0:
+            raise ValueError("Class code must be a non-empty string")
+
+        self._class_code = new
 
     @property
     def class_room(self) -> str:
