@@ -54,7 +54,7 @@ class Time:
 
     @hour.setter
     def hour(self, new):
-        if new < 0 or new >= self.HOURS:
+        if (not isinstance(new, int)) or (new < 0 or new >= self.HOURS):
             raise ValueError("Invalid hour")
 
         self._hour = new
@@ -65,7 +65,7 @@ class Time:
 
     @minute.setter
     def minute(self, new):
-        if new < 0 or new >= self.MINUTES:
+        if (not isinstance(new, int)) or (new < 0 or new >= self.MINUTES):
             raise ValueError("Invalid minute")
 
         self._minute = new

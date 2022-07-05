@@ -232,7 +232,7 @@ def test_time_minute_setter_lower_boundary_valid():
 
 def test_time_minute_setter_lower_boundary_invalid():
     """
-    Check that time dataclass doesnt accept an minute below the lower boundary
+    Check that time dataclass doesnt accept a minute below the lower boundary
     """
     t = Time(2, 0)
 
@@ -250,7 +250,7 @@ def test_time_minute_setter_lower_boundary_invalid():
 
 def test_time_minute_setter_upper_boundary_invalid():
     """
-    Check that time dataclass doesnt accept an minute above the upper boundary
+    Check that time dataclass doesnt accept a minute above the upper boundary
     """
     t = Time(2, 0)
 
