@@ -167,7 +167,22 @@ class TimetableController:
 
             last_idx = vbox.count() - 1
 
-            button = vbox.itemAt(last_idx).widget()
+            # Find the last button
+            # We do it this way so we can add spacers and stuff at the end
+            while not isinstance(
+                    button := vbox.itemAt(last_idx).widget(),
+                    view.QtWidgets.QPushButton
+                    ):
+                last_idx -= 1
+
+                # This would happen if there isnt a button.
+                # Just dont do anything
+                if last_idx == -1:
+                    break
+
+            # We need to do it out here as well so we can continue the for loop
+            if last_idx == -1:
+                continue
 
             if model.DaySpells.spell_five:
                 button.show()
