@@ -1,5 +1,5 @@
 from PySide6 import QtWidgets, QtCore
-from timetable.model import SpellSlot, Day
+from timetable.model import SpellSlot, Day, AttendanceCode
 
 app = QtWidgets.QApplication()
 
@@ -40,6 +40,10 @@ class SpellInfoWidget(QtWidgets.QWidget):
         vbox.addWidget(self.time_label)
 
         form_layout = QtWidgets.QFormLayout(self.container_widget)
+
+        # Populate the combobox
+        self.attendance_combobox.addItems([str(code)
+                                           for code in AttendanceCode])
         form_layout.addRow("Attendance: ", self.attendance_combobox)
 
         self.form_widget.setLayout(form_layout)

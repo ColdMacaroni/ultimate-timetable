@@ -3,12 +3,12 @@ from enum import Enum, auto
 
 
 class AttendanceCode(Enum):
+    UNKNOWN = auto()
     PRESENT = auto()
     LATE = auto()
     ABSENT = auto()
     MEDICAL = auto()
     CANCELLED = auto()
-    UNKNOWN = auto()
 
     def __str__(self):
         reversed_dict = dict(map(reversed, self.str_dict.items()))

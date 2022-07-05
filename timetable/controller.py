@@ -18,6 +18,8 @@ class SpellInfoController:
         # shown
         self.spell_info_widget .form_widget.show()
 
+        self.spell_info_widget.spell_slot = spell_slot
+
         self.spell_info_widget.spell_code_label.setText(
             f"Code: {spell_slot.spell.class_code}"
         )
@@ -49,8 +51,7 @@ class SpellInfoController:
             f"Duration: {spell_slot.start} - {spell_slot.end}"
         )
 
-        self.spell_info_widget.spell_slot = spell_slot
-
+        # TODO Change text
 
 class TimetableController:
     def __init__(self, timetable_window: view.TimetableMain,
