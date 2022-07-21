@@ -1,5 +1,6 @@
 from timetable import view
 from timetable import model
+
 import json
 
 # For dealing with spell slots
@@ -40,6 +41,7 @@ class SpellInfoController:
                 f"Room: {spell_slot.spell.class_room}"
             )
 
+        # We shouldnt show them on freespells
         else:
             self.spell_info_widget.teacher_name_label.hide()
             self.spell_info_widget.teacher_name_label.setText("")
@@ -51,7 +53,6 @@ class SpellInfoController:
             f"Duration: {spell_slot.start} - {spell_slot.end}"
         )
 
-        # TODO Change text
 
 class TimetableController:
     def __init__(self, timetable_window: view.TimetableMain,
