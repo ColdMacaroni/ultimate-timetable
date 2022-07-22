@@ -126,8 +126,8 @@ class TimetableController:
             spell_times: dict[str, list[dict[str, list[int, int]]]]
             ) -> dict[str, model.DaySpells]:
         """
-        This function creates SpellSlot objects and creates a DaySpells
-        object from them.
+        Creates a dictionary with a DaySpells object for each day, each with
+        their corresponding SpellSlot objects, based on the dictionaries given.
         """
         # The final dictionary to be returned
         day_spells = dict()
@@ -155,7 +155,7 @@ class TimetableController:
                     )
                 )
 
-            # Will keep as a string so its easier to work with combobox
+            # Will keep as a string so its easier to work with a combobox
             day_spells[day] = model.DaySpells(
                 model.Day.from_str(day), spell_slots
             )
@@ -169,7 +169,8 @@ class TimetableController:
         tw stands for timetable_window
         """
         # 0 is unchecked, checked is 2.
-        # 1 is for half checked in tri state checkboxes
+        # 1 is for half checked in tri-state checkboxes
+        #                    (which make no sense here)
         if state == 2:
             model.DaySpells.spell_five = True
 
@@ -190,7 +191,8 @@ class TimetableController:
             last_idx = vbox.count() - 1
 
             # Find the last button
-            # We do it this way so we can add spacers and stuff at the end
+            # We do it this way so we can also have non button items in the
+            # layout like spaces and stretches
             while not isinstance(
                     button := vbox.itemAt(last_idx).widget(),
                     view.QtWidgets.QPushButton
@@ -202,24 +204,27 @@ class TimetableController:
                 if last_idx == -1:
                     break
 
-            # We need to do it out here as well so we can continue the for loop
+            # The previous if would only break the while loop, but we also
+            # need to skip this iteration of the for loop
             if last_idx == -1:
                 continue
 
             if model.DaySpells.spell_five:
                 button.show()
+
             else:
                 button.hide()
 
-                # We dont want to keep showing the info for a spell that doesnt
-                # exist. We'll check if the current displayed is the same as
-                # the last one. And if it is, we'll just clear the information
+                # We don't want to display information for a spell that
+                # technically doesnt exist, as that can be confusing.
                 last_spell = self.day_spells[str(day).lower()].spell_slots[-1]
                 if self.timetable_window.spell_info.spell_slot is last_spell:
                     self.timetable_window.spell_info.clear()
 
     def populate_tabs(self):
-        """Adds buttons for all the spells on a day tab"""
+        """
+        Adds spell buttons with connected signals on each day tab
+        """
         for day in model.Day:
             widget = self.timetable_window.day_widgets[day]
             day_spell = self.day_spells[str(day).lower()]
@@ -232,7 +237,8 @@ class TimetableController:
                     f"{spell_slot.spell.class_code}\n" +
                     (
                         # This doesnt show the room if the spell is free
-                        # The newline is keep so all have the same height
+                        # The newline is keep so all buttons have the same
+                        # line number and therefore height.
                         "\n" if spell_slot.spell.class_code == FREE_SPELL_CODE
                         else f"Room {spell_slot.spell.class_room}\n"
                     ) +
@@ -249,6 +255,9 @@ class TimetableController:
             widget.setLayout(vbox)
 
     def run(self):
-        """This method makes the whole Qt stuff appear"""
+        """
+        This method makes the whole Qt stuff appear.
+        The program should be run through this method, not manually.
+        """
         self.timetable_window.show()
         view.app.exec()

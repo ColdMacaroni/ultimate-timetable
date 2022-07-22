@@ -22,13 +22,16 @@ class SpellInfoWidget(QtWidgets.QWidget):
         self.time_label = QtWidgets.QLabel(self.container_widget)
 
         # We need a specific widget for the forms because we cant hide a layout
-        # and clearing isnt what we want
+        # and clearing would mean having to always re-add all the widgets again
         self.form_widget = QtWidgets.QWidget(self.container_widget)
         self.attendance_combobox = QtWidgets.QComboBox(self.form_widget)
 
         self.initUI()
 
     def initUI(self):
+        """
+        Set up layouts and functionality of all the widgets
+        """
         holder_layout = QtWidgets.QVBoxLayout(self)
         vbox = QtWidgets.QVBoxLayout(self.container_widget)
 
@@ -58,18 +61,15 @@ class SpellInfoWidget(QtWidgets.QWidget):
     def clear(self):
         """
         This method makes all the children of this widget practically invisible
-        The reason for doing this and not just .hide() is because .hide() would
-        mess up the layout.
+        Use this method insterad of .hide() to not mess up the layout.
         """
-        # We'll go through each attribute of this class and clear them if they
-        # are a clearable type. Not using hasattr because some clearing
-        # behaviour may be unwanted. Like clearing a dictionary
-
-        # Types that can be cleared
+        # Whitelist of types with a safe .clear() method.
+        # We're not using a blanket hasattr("clear") as it may have unwanted
+        # effects on certain members. Like dictionaries or lists.
         clearable = (QtWidgets.QLabel, QtWidgets.QListWidget)
 
-        # Expression for going through this objects attributes -> vars(self)
-        # learnt from a comment by juanpa.arrivillaga in
+        # Expression for going through this object's attributes: vars(self)
+        # learnt from a comment by juanpa.arrivillaga on
         # https://stackoverflow.com/a/67220630
         for value in vars(self).values():
             if any(map(lambda type_: isinstance(value, type_), clearable)):
@@ -94,8 +94,9 @@ class SpellInfoWidget(QtWidgets.QWidget):
         # been selected, such as when creating a new SpellInfoWidget or
         # changing the tab in the main window.
         if not (isinstance(new, SpellSlot) or new is None):
-            raise ValueError("spell_slot must be set to a SpellSlot object"
-                             " or None")
+            raise ValueError(
+                "spell_slot must be set to a SpellSlot object or None"
+            )
 
         self._spell_slot = new
 
@@ -105,8 +106,6 @@ class TimetableMain(QtWidgets.QMainWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        # For picking days
-        # self.day_combobox = QtWidgets.QComboBox(self)
         self.days_tabwidget = QtWidgets.QTabWidget(self)
         self.day_widgets = {
             day: QtWidgets.QWidget(self.days_tabwidget)
@@ -114,15 +113,16 @@ class TimetableMain(QtWidgets.QMainWindow):
         }
 
         # TODO! Replace all references to spell 5 with last spell
-        # For setting if spell 5 exists
         self.spell5_checkbox = QtWidgets.QCheckBox("Spell 5", self)
 
-        # For actually viewing the info
         self.spell_info = SpellInfoWidget(self)
 
         self.initUI()
 
     def initUI(self):
+        """
+        Set up layouts and functionality of all the widgets
+        """
         self.setCentralWidget(QtWidgets.QWidget())
         self.setGeometry(QtCore.QRect(100, 100, 440, 500))
 
@@ -130,7 +130,8 @@ class TimetableMain(QtWidgets.QMainWindow):
         for name, widg in self.day_widgets.items():
             self.days_tabwidget.addTab(widg, str(name))
 
-        # Put the tabs on the left so we dont need to scroll
+        # Put the tabs on the left so we dont need to scroll due to the small
+        # horizontal size
         self.days_tabwidget.setTabPosition(
             QtWidgets.QTabWidget.TabPosition.West
         )
@@ -142,11 +143,9 @@ class TimetableMain(QtWidgets.QMainWindow):
         # This is the main layout for the window
         hbox = QtWidgets.QHBoxLayout(self.centralWidget())
 
-        # This will put the checkbox above the tabwidget
+        # This vbox will put the checkbox above the tabwidget
         left_vbox = QtWidgets.QVBoxLayout(self.centralWidget())
 
-        # The stretch is because they look weird when right next to each other
-        # header_hbox.addWidget(self.day_combobox)
         left_vbox.addWidget(self.spell5_checkbox)
         left_vbox.addWidget(self.days_tabwidget)
 

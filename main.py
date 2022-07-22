@@ -13,14 +13,14 @@ def main(spells_fn, times_fn):
     spells_fn: Filename for the JSON with the data for the spells.
     times_fn: Filename for the JSON with the data for the times of each spell.
     """
-    # Read the files
+    # Grab the files as dictionaries
     with open(spells_fn, 'r') as fp:
         spell_data = json.load(fp)
 
     with open(times_fn, 'r') as fp:
         times_data = json.load(fp)
 
-    # the controller handles everything else
+    # The controller handles everything else
     win = TimetableMain()
     con = TimetableController(win, spell_data, times_data)
 

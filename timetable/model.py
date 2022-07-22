@@ -245,10 +245,12 @@ class SpellSlot:
 
     def connect_with_self(self, signal, function, *args):
         """
-        This method connects the signal with a call to the fuction using
+        This method connects the given signal with a call to the fuction using
         self as the first argument and *args as the rest.
-        It is done this way because with a for loop, the function call would
-        only use the last variable in the loop (python moment).
+
+        It is done this way because with a for loop the function call would
+        only use the last value of the loop variable.
+
         With the method, you can be sure the function is being called with this
         specific SpellSlot.
         """
