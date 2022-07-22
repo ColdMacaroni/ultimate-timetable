@@ -25,8 +25,7 @@ class SpellInfoWidget(QtWidgets.QWidget):
         # and clearing isnt what we want
         self.form_widget = QtWidgets.QWidget(self.container_widget)
         self.attendance_combobox = QtWidgets.QComboBox(self.form_widget)
-        # TODO: Combobox for attendance
-        # TODO: listwidget for homework (not needed. Do only if need to flex)
+
         self.initUI()
 
     def initUI(self):

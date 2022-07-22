@@ -11,14 +11,26 @@ class SpellInfoController:
     def __init__(self, spell_info_widget: view.SpellInfoWidget):
         self.spell_info_widget = spell_info_widget
 
-    # TODO: Setting attendance
+        self.spell_info_widget.attendance_combobox.currentTextChanged\
+            .connect(self.attendance_combobox_currentTextChanged)
+
+    def attendance_combobox_currentTextChanged(self, text):
+        """
+        Sets the attendance code of the current spellslot according to the
+        combobox's text
+        """
+        code = model.AttendanceCode.from_str(text)
+
+        self.spell_info_widget.spell_slot.attendance = code
+
     def update_labels(self, spell_slot: view.SpellSlot):
         """Changes the labels of this controller's info widget to match the
         given spell slot"""
-        # Form is hidden when the info is cleared, we need to make sure it is
-        # shown
-        self.spell_info_widget .form_widget.show()
+        # Form is hidden on certain cases (e.g. spell 5 disabled while looking
+        # at its info), we need to make sure it is shown
+        self.spell_info_widget.form_widget.show()
 
+        # These widgets are visible regardless of the type of spell
         self.spell_info_widget.spell_slot = spell_slot
 
         self.spell_info_widget.spell_code_label.setText(
@@ -26,6 +38,10 @@ class SpellInfoController:
         )
         self.spell_info_widget.spell_name_label.setText(
             f"Class name: {spell_slot.spell.class_name}"
+        )
+
+        self.spell_info_widget.attendance_combobox.setCurrentText(
+            str(self.spell_info_widget.spell_slot.attendance)
         )
 
         # These dont have any info if the spells are free
@@ -41,7 +57,7 @@ class SpellInfoController:
                 f"Room: {spell_slot.spell.class_room}"
             )
 
-        # We shouldnt show them on freespells
+        # We shouldnt show these on free spells
         else:
             self.spell_info_widget.teacher_name_label.hide()
             self.spell_info_widget.teacher_name_label.setText("")
