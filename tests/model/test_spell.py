@@ -1,5 +1,6 @@
 from timetable.model import Spell
 
+
 def test_spell_from_dict():
     spell_dict = {
         "name": "Spell name",

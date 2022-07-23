@@ -1,5 +1,6 @@
 from timetable.model import Time
 
+
 def test_time_str():
     """
     Checks that the time is correctly converted to a string

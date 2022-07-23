@@ -1,5 +1,6 @@
 from timetable.model import Day
 
+
 def test_day_from_str():
     """
     Check that the correct attribute is returned from a string

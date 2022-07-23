@@ -1,5 +1,6 @@
 from timetable.model import AttendanceCode
 
+
 def test_attendance_from_str():
     """
     Checks that you get the correct attribute from a string
