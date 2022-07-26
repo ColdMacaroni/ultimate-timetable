@@ -258,20 +258,21 @@ class SpellSlot:
 
 
 class DaySpells:
-    # TODO! Replace all references to spell 5 with last spell
+    # I'm not using a dataclass because I need spell_five to be a class
+    # member rather than instance member so it's easy to toggle.
     _spell_five = True
 
     def __init__(self, day: Day, spell_slots: list[SpellSlot]):
         self.day = day
         self.spell_slots = spell_slots
 
-    def spell(self, idx) -> SpellSlot:
+    def spell(self, idx: int) -> SpellSlot:
         """
         Returns the spellslot object of the slot pointed by the index.
         """
         return self.spell_slots[idx]
 
-    def times(self, idx) -> tuple[Time, Time]:
+    def times(self, idx: int) -> tuple[Time, Time]:
         """
         Returns the start and end Time objects of slot pointed by the index.
         """
@@ -285,7 +286,7 @@ class DaySpells:
 
     @spell_five.setter
     @classmethod
-    def spell_five(cls, new):
+    def spell_five(cls, new: bool):
         if not isinstance(cls, bool):
             raise ValueError("Spell 5 must be a boolean")
         cls._spell_five = new
@@ -307,7 +308,6 @@ class DaySpells:
 
     @spell_slots.setter
     def spell_slots(self, new):
-        # All must be spellslot
         if not all(map(lambda x: isinstance(x, SpellSlot), new)):
             raise ValueError("New spell slots list must only"
                              "have SpellSlot dataclass")
