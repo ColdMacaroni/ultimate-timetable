@@ -280,14 +280,12 @@ class DaySpells:
         return spell_slot.start, spell_slot.end
 
     @property
-    @classmethod
     def spell_five(cls) -> bool:
         return cls._spell_five
 
     @spell_five.setter
-    @classmethod
     def spell_five(cls, new: bool):
-        if not isinstance(cls, bool):
+        if not isinstance(new, bool):
             raise ValueError("Spell 5 must be a boolean")
         cls._spell_five = new
 
@@ -297,7 +295,7 @@ class DaySpells:
 
     @day.setter
     def day(self, new):
-        if new not in Day:
+        if not isinstance(new, Day):
             raise ValueError("Value is not of Day enum")
 
         self._day = new
@@ -308,7 +306,8 @@ class DaySpells:
 
     @spell_slots.setter
     def spell_slots(self, new):
-        if not all(map(lambda x: isinstance(x, SpellSlot), new)):
+        if not isinstance(new, list) or\
+                not all(map(lambda x: isinstance(x, SpellSlot), new)):
             raise ValueError("New spell slots list must only"
                              "have SpellSlot dataclass")
 
