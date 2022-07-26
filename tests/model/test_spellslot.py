@@ -82,7 +82,209 @@ def test_spellslot_valid():
         "Attendance code set to a different object"
 
 
-def test_spellslot_spell_setter():
+def test_spellslot_spell_setter_valid():
+    """
+    Check that the spell member can be set correctly to a valid value
+    """
     spell = Spell("Spell name", "CODE", "23", "TEA", "Teacher Name")
     start = Time(1, 14)
     end = Time(2, 5)
+
+    spell_slot = SpellSlot(spell, start, end, AttendanceCode.MEDICAL)
+
+    TO_SET = Spell("New Spell", "SPN", "T4", "NOP", "No Teacher")
+
+    exception_raised = False
+    try:
+        spell_slot.spell = TO_SET
+
+    except ValueError:
+        exception_raised = True
+
+    assert exception_raised is False,\
+        "Exception raised when setting spell to a valid value"
+
+    assert spell_slot.spell is TO_SET,\
+        "spell not set to value despite no exceptions raised"
+
+
+def test_spellslot_spell_setter_invalid():
+    """
+    Check that the spell member cant be set to an invalid value
+    """
+    spell = Spell("Spell name", "CODE", "23", "TEA", "Teacher Name")
+    start = Time(1, 14)
+    end = Time(2, 5)
+
+    spell_slot = SpellSlot(spell, start, end, AttendanceCode.MEDICAL)
+
+    TO_SET = "Jijija"
+
+    exception_raised = False
+    try:
+        spell_slot.spell = TO_SET
+
+    except ValueError:
+        exception_raised = True
+
+    assert exception_raised is True,\
+        "ValueError not raised when setting spell to an invalid value"
+
+    assert spell_slot.spell != TO_SET,\
+        "spell is set to value despite ValueError raised"
+
+
+def test_spellslot_start_setter_valid():
+    """
+    Check that the start member can be set correctly to a valid value
+    """
+    spell = Spell("Spell name", "CODE", "23", "TEA", "Teacher Name")
+    start = Time(1, 14)
+    end = Time(2, 5)
+
+    spell_slot = SpellSlot(spell, start, end, AttendanceCode.MEDICAL)
+
+    TO_SET = Time(2, 4)
+
+    exception_raised = False
+    try:
+        spell_slot.start = TO_SET
+
+    except ValueError:
+        exception_raised = True
+
+    assert exception_raised is False,\
+        "Exception raised when setting start to a valid value"
+
+    assert spell_slot.start is TO_SET,\
+        "start not set to value despite no exceptions raised"
+
+
+def test_spellslot_start_setter_invalid():
+    """
+    Check that the start member cant be set to an invalid value
+    """
+    spell = Spell("Spell name", "CODE", "23", "TEA", "Teacher Name")
+    start = Time(1, 14)
+    end = Time(2, 5)
+
+    spell_slot = SpellSlot(spell, start, end, AttendanceCode.MEDICAL)
+
+    TO_SET = "Jijija"
+
+    exception_raised = False
+    try:
+        spell_slot.start = TO_SET
+
+    except ValueError:
+        exception_raised = True
+
+    assert exception_raised is True,\
+        "ValueError not raised when setting start to an invalid value"
+
+    assert spell_slot.start != TO_SET,\
+        "start is set to value despite ValueError raised"
+
+
+def test_spellslot_end_setter_valid():
+    """
+    Check that the end member can be set correctly to a valid value
+    """
+    spell = Spell("Spell name", "CODE", "23", "TEA", "Teacher Name")
+    start = Time(1, 14)
+    end = Time(2, 5)
+
+    spell_slot = SpellSlot(spell, start, end, AttendanceCode.MEDICAL)
+
+    TO_SET = Time(3, 4)
+
+    exception_raised = False
+    try:
+        spell_slot.end = TO_SET
+
+    except ValueError:
+        exception_raised = True
+
+    assert exception_raised is False,\
+        "Exception raised when setting end to a valid value"
+
+    assert spell_slot.end is TO_SET,\
+        "end not set to value despite no exceptions raised"
+
+
+def test_spellslot_end_setter_invalid():
+    """
+    Check that the end member cant be set to an invalid value
+    """
+    spell = Spell("Spell name", "CODE", "23", "TEA", "Teacher Name")
+    start = Time(1, 14)
+    end = Time(2, 5)
+
+    spell_slot = SpellSlot(spell, start, end, AttendanceCode.MEDICAL)
+
+    TO_SET = "Jijija"
+
+    exception_raised = False
+    try:
+        spell_slot.end = TO_SET
+
+    except ValueError:
+        exception_raised = True
+
+    assert exception_raised is True,\
+        "ValueError not raised when setting end to an invalid value"
+
+    assert spell_slot.end != TO_SET,\
+        "end is set to value despite ValueError raised"
+
+
+def test_spellslot_attendance_setter_valid():
+    """
+    Check that the attendance member can be set correctly to a valid value
+    """
+    spell = Spell("Spell name", "CODE", "23", "TEA", "Teacher Name")
+    start = Time(1, 14)
+    end = Time(2, 5)
+
+    spell_slot = SpellSlot(spell, start, end, AttendanceCode.MEDICAL)
+
+    TO_SET = AttendanceCode.ABSENT
+
+    exception_raised = False
+    try:
+        spell_slot.attendance = TO_SET
+
+    except ValueError:
+        exception_raised = True
+
+    assert exception_raised is False,\
+        "Exception raised when setting attendance to a valid value"
+
+    assert spell_slot.attendance is TO_SET,\
+        "attendance not set to value despite no exceptions raised"
+
+
+def test_spellslot_attendance_setter_invalid():
+    """
+    Check that the attendance member cant be set to an invalid value
+    """
+    spell = Spell("Spell name", "CODE", "23", "TEA", "Teacher Name")
+    start = Time(1, 14)
+    end = Time(2, 5)
+
+    spell_slot = SpellSlot(spell, start, end, AttendanceCode.MEDICAL)
+
+    TO_SET = "Jijija"
+
+    exception_raised = False
+    try:
+        spell_slot.attendance = TO_SET
+
+    except ValueError:
+        exception_raised = True
+
+    assert exception_raised is True,\
+        "ValueError not raised when setting attendance to an invalid value"
+
+    assert spell_slot.attendance != TO_SET,\
+        "attendance is set to value despite ValueError raised"
