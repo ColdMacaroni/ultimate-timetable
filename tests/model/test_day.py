@@ -54,6 +54,22 @@ def test_day_from_str_invalid():
     assert excepted is True, "Didn't raise ValueError with invalid day"
 
 
+def test_day_from_str_invalid():
+    """
+    Check that an incorrect key raises an Exception
+    """
+    day = None
+
+    excepted = False
+    try:
+        day = Day.from_str(2)
+
+    except ValueError:
+        excepted = True
+
+    assert excepted is True, "Didn't raise ValueError with invalid day"
+
+
 def test_day_str():
     """
     Check that the attributes get turned into the correct string

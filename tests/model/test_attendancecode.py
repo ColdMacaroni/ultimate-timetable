@@ -62,6 +62,21 @@ def test_from_str_invalid():
         "ValueError not raised when trying to create from invalid string"
 
 
+def test_from_str_invalid__type():
+    """
+    Check that it raised an exception when given an incorrect type
+    """
+    excepted = False
+    try:
+        AttendanceCode.from_str(12345678)
+
+    except ValueError:
+        excepted = True
+
+    assert excepted is True,\
+        "ValueError not raised when trying to create from invalid type"
+
+
 def test_from_str_boundary_invalid():
     """
     Check that it raised an exception when given a lower case code.
