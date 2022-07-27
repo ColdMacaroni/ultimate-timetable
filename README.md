@@ -21,5 +21,5 @@ and `times.json` files.
 You can also specify your own JSON files with `python3 main.py spells_filename.json times_filename.json`.
 
 ### Running tests
-The tests use the pytest framework. I've trouble getting VSCodium to recognise my tests, but you can just as
+The tests use the pytest framework. I've had trouble getting VSCodium to recognise my tests, but you can just as
 easily run `pytest tests` from the root folder.
