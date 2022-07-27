@@ -35,7 +35,23 @@ def test_day_from_str_boundary_invalid():
     except ValueError:
         excepted = True
 
-    assert excepted is True, "Didn't raise KeyError with invalid day"
+    assert excepted is True, "Didn't raise ValueError with invalid day"
+
+
+def test_day_from_str_invalid():
+    """
+    Check that an incorrect key raises an Exception
+    """
+    day = None
+
+    excepted = False
+    try:
+        day = Day.from_str("Mokuyoubi")
+
+    except ValueError:
+        excepted = True
+
+    assert excepted is True, "Didn't raise ValueError with invalid day"
 
 
 def test_day_str():

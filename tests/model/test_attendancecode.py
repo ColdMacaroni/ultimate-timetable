@@ -45,3 +45,34 @@ def test_attendance_str():
 
     assert str(AttendanceCode.UNKNOWN) == "",\
         "Wrong string from attendance code"
+
+
+def test_from_str_invalid():
+    """
+    Check that it raised an exception when given an incorrect string
+    """
+    excepted = False
+    try:
+        AttendanceCode.from_str("Invalid string")
+
+    except ValueError:
+        excepted = True
+
+    assert excepted is True,\
+        "ValueError not raised when trying to create from invalid string"
+
+
+def test_from_str_boundary_invalid():
+    """
+    Check that it raised an exception when given a lower case code.
+    It should use the same codes as KAMAR which uses upper case.
+    """
+    excepted = False
+    try:
+        AttendanceCode.from_str("p")
+
+    except ValueError:
+        excepted = True
+
+    assert excepted is True,\
+        "ValueError not raised when trying to create from lower case code."
