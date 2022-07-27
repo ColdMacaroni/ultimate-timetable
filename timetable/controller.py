@@ -80,7 +80,6 @@ class TimetableController:
             self.timetable_window.spell_info
         )
 
-        # TODO: Add to testing table how invalid and boundary jsons behave
         self.spells = self.create_spells(self.spell_dict["spells"])
 
         self.day_spells = self.create_day_spells(
@@ -162,7 +161,6 @@ class TimetableController:
 
         return day_spells
 
-    # TODO! Replace all references to spell 5 with last spell
     def tw_spell5_checkbox_stateChanged(self, state):
         """
         Sets the bool in DaySpell depending on the checkbox's state

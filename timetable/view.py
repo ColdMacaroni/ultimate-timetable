@@ -112,7 +112,6 @@ class TimetableMain(QtWidgets.QMainWindow):
             for day in Day
         }
 
-        # TODO! Replace all references to spell 5 with last spell
         self.spell5_checkbox = QtWidgets.QCheckBox("Spell 5", self)
 
         self.spell_info = SpellInfoWidget(self)
