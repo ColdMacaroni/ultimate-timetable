@@ -3,43 +3,43 @@
         "ako": {
             "class_name": "Ako",
             "class_code": "AKO",
-            "teacher_name": "Suzanne Pryde",
-            "teacher_code": "PSU",
+            "teacher_name": "Cool Ako Teacher",
+            "teacher_code": "CAT",
             "class_room": "20"
         },
         "1": {
             "class_name": "English",
             "class_code": "ENG",
-            "teacher_code": "HGR",
-            "teacher_name": "Grace Howarth",
+            "teacher_code": "GRR",
+            "teacher_name": "Grr angery",
             "class_room": "22"
         },
         "2": {
             "class_name": "Fashion and Design",
             "class_code": "FDE",
-            "teacher_code": "HSU",
-            "teacher_name": "Sue Hannaway",
+            "teacher_code": "NCT",
+            "teacher_name": "Nice Class TBH",
             "class_room": "T1"
         },
         "3": {
             "class_name": "Maths with Calculus",
             "class_code": "MAC",
-            "teacher_code": "USH",
-            "teacher_name": "Shimmy Unnikrishnan",
+            "teacher_code": "ILT",
+            "teacher_name": "I Love Trig",
             "class_room": "40"
         },
         "4": {
             "class_name": "Digital Media",
             "class_code": "DTM",
-            "teacher_code": "CKL",
-            "teacher_name": "Whaea Kailey",
+            "teacher_code": "CDL",
+            "teacher_name": "Cant Design Lol",
             "class_room": "8"
         },
         "5": {
             "class_name": "Computer Science",
             "class_code": "DTC",
-            "teacher_code": "VTA",
-            "teacher_name": "Tatiana Voropaeva",
+            "teacher_code": "YAY",
+            "teacher_name": "Yay computers",
             "class_room": "7"
         },
         "6": null,
